@@ -1,0 +1,21 @@
+{
+  "name": "encritary/vk_user-quests",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Raul Vakhitov",
+      "email": "encritary@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=8.1",
+    "ext-json": "*",
+    "ext-mysqli": "*",
+    "ext-ctype": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "encritary\\userQuests\\": "src/"
+    }
+  }
+}
