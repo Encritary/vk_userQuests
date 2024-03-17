@@ -26,14 +26,18 @@ final class Db{
 		}
 		if(self::$db === null){
 			// Connect first time or reconnect, if gone away
-			self::$db = new mysqli(
-				self::$credentials->host,
-				self::$credentials->user,
-				self::$credentials->password,
-				self::$credentials->db,
-				self::$credentials->port
-			);
+			self::$db = self::createConnection();
 		}
 		return self::$db;
+	}
+
+	protected static function createConnection() : mysqli{
+		return new mysqli(
+			self::$credentials->host,
+			self::$credentials->user,
+			self::$credentials->password,
+			self::$credentials->db,
+			self::$credentials->port
+		);
 	}
 }
