@@ -30,14 +30,14 @@ abstract class AttributedController implements Controller{
 				if($numParams === 1){
 					$param = $method->getParameters()[0];
 					if($param->getType()->getName() !== Request::class || $param->allowsNull()){
-						throw new UnexpectedValueException($obj->getName() . "::" . $methodName . ": Expected parameter 'request' for method $methodName to be non-null " . Request::class);
+						throw new UnexpectedValueException($obj->getName() . "::" . $methodName . ": Expected parameter 'request' to be non-null " . Request::class);
 					}
 				}elseif($numParams !== 0){
-					throw new UnexpectedValueException($obj->getName() . "::" . $methodName . ": Expected from zero to one required parameter 'request' for method $methodName");
+					throw new UnexpectedValueException($obj->getName() . "::" . $methodName . ": Expected from zero to one required parameter 'request'");
 				}
 
 				if($method->getReturnType()->getName() !== Response::class){
-					throw new UnexpectedValueException($obj->getName() . "::" . $methodName . ": Expected return type for method $methodName to be " . Response::class);
+					throw new UnexpectedValueException($obj->getName() . "::" . $methodName . ": Expected return type to be " . Response::class);
 				}
 
 				$this->methods[$methodName] = [$this, $methodName];
