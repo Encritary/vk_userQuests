@@ -29,6 +29,10 @@ class Config{
 			throw new ConfigException("Couldn't parse JSON: {$e->getMessage()}", $e);
 		}
 
+		return self::fromArray($data);
+	}
+
+	public static function fromArray(array $data) : self{
 		if(!isset($data['db'])){
 			throw new ConfigException("Missing DB connection credentials");
 		}
