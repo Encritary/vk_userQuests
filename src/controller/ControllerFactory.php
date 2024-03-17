@@ -45,6 +45,7 @@ final class ControllerFactory{
 		if(isset($this->controllers[$controller->getName()])){
 			throw new InvalidArgumentException("Controller {$controller->getName()} is already registered");
 		}
+		$controller->setup();
 		$this->controllers[$controller->getName()] = $controller;
 	}
 }

@@ -12,4 +12,6 @@ interface Controller{
 	public function execute(string $methodName, Request $request) : Response;
 
 	public function getName() : string;
+
+	public function setup() : void;
 }

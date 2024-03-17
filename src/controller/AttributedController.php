@@ -15,7 +15,14 @@ abstract class AttributedController implements Controller{
 	/** @var array<string, callable> */
 	private array $methods = [];
 
-	public function __construct(){
+	public function execute(string $methodName, Request $request) : Response{
+		if(!isset($this->methods[$methodName])){
+			throw new MethodNotFoundException("{$this->getName()}.$methodName");
+		}
+		return ($this->methods[$methodName])($request);
+	}
+
+	public function setup() : void{
 		$obj = new ReflectionObject($this);
 		foreach($obj->getMethods() as $method){
 			foreach($method->getAttributes(Route::class) as $attr){
@@ -40,15 +47,12 @@ abstract class AttributedController implements Controller{
 					throw new UnexpectedValueException($obj->getName() . "::" . $method->getName() . ": Expected return type to be " . Response::class);
 				}
 
-				$this->methods[$methodName] = [$this, $method->getName()];
+				$this->registerMethod($methodName, [$this, $method->getName()]);
 			}
 		}
 	}
 
-	public function execute(string $methodName, Request $request) : Response{
-		if(!isset($this->methods[$methodName])){
-			throw new MethodNotFoundException("{$this->getName()}.$methodName");
-		}
-		return ($this->methods[$methodName])($request);
+	protected function registerMethod(string $methodName, callable $callable) : void{
+		$this->methods[$methodName] = $callable;
 	}
 }
