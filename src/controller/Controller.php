@@ -9,7 +9,7 @@ use encritary\userQuests\response\Response;
 
 interface Controller{
 
-	public function execute(string $name, Request $request) : Response;
+	public function execute(string $methodName, Request $request) : Response;
 
 	public function getName() : string;
 }

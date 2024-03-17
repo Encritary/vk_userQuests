@@ -45,10 +45,10 @@ abstract class AttributedController implements Controller{
 		}
 	}
 
-	public function execute(string $name, Request $request) : Response{
-		if(!isset($this->methods[$name])){
-			throw new MethodNotFoundException("{$this->getName()}.$name");
+	public function execute(string $methodName, Request $request) : Response{
+		if(!isset($this->methods[$methodName])){
+			throw new MethodNotFoundException("{$this->getName()}.$methodName");
 		}
-		return ($this->methods[$name])($request);
+		return ($this->methods[$methodName])($request);
 	}
 }
