@@ -10,6 +10,9 @@ use encritary\userQuests\db\Db;
 use encritary\userQuests\request\Request;
 use encritary\userQuests\response\Response;
 use encritary\userQuests\router\Router;
+use function mysqli_report;
+use const MYSQLI_REPORT_ERROR;
+use const MYSQLI_REPORT_STRICT;
 
 final class App{
 
@@ -17,6 +20,8 @@ final class App{
 
 	public function __construct(){
 		$config = Config::fromFile('config.json');
+
+		mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 		Db::init($config->dbCredentials);
 
 		ControllerFactory::init();
