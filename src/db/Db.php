@@ -27,11 +27,11 @@ final class Db{
 		if(self::$db === null){
 			// Connect first time or reconnect, if gone away
 			self::$db = new mysqli(
-				self::$credentials['host'],
-				self::$credentials['user'],
-				self::$credentials['password'],
-				self::$credentials['db'],
-				self::$credentials['port'] ?? 3306
+				self::$credentials->host,
+				self::$credentials->user,
+				self::$credentials->password,
+				self::$credentials->db,
+				self::$credentials->port
 			);
 		}
 		return self::$db;
