@@ -8,12 +8,12 @@ use encritary\userQuests\exception\AppException;
 use encritary\userQuests\exception\ErrorCode;
 use encritary\userQuests\response\http\HttpCode;
 use encritary\userQuests\view\JsonView;
-use Exception;
+use Throwable;
 use function get_class;
 
 class ErrorResponse extends Response{
 
-	public static function fromException(Exception $e) : self{
+	public static function fromThrowable(Throwable $e) : self{
 		if($e instanceof AppException){
 			return new self($e->getMessage(), $e->getCode(), $e->httpCode);
 		}

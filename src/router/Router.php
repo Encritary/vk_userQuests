@@ -12,7 +12,7 @@ use encritary\userQuests\request\Request;
 use encritary\userQuests\response\ErrorResponse;
 use encritary\userQuests\response\http\HttpCode;
 use encritary\userQuests\response\Response;
-use Exception;
+use Throwable;
 use function count;
 use function error_log;
 use function explode;
@@ -40,10 +40,10 @@ class Router{
 			$controller = $controllerFactory->get($controllerName);
 
 			return $controller->execute($method, $request);
-		}catch(Exception $e){
+		}catch(Throwable $e){
 			error_log(get_class($e) . ": " . $e->getMessage());
 			error_log($e->getTraceAsString());
-			return ErrorResponse::fromException($e);
+			return ErrorResponse::fromThrowable($e);
 		}
 	}
 }
