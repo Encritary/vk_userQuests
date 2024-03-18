@@ -14,7 +14,9 @@ use encritary\userQuests\response\http\HttpCode;
 use encritary\userQuests\response\Response;
 use Exception;
 use function count;
+use function error_log;
 use function explode;
+use function get_class;
 use function parse_url;
 use function str_contains;
 use const PHP_URL_PATH;
@@ -39,6 +41,8 @@ class Router{
 
 			return $controller->execute($method, $request);
 		}catch(Exception $e){
+			error_log(get_class($e) . ": " . $e->getMessage());
+			error_log($e->getTraceAsString());
 			return ErrorResponse::fromException($e);
 		}
 	}
