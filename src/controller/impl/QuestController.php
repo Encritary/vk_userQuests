@@ -24,6 +24,17 @@ class QuestController extends AttributedController{
 		return new SuccessResponse(['quest_id' => $quest->id]);
 	}
 
+	#[Route]
+	public function get(Request $request) : Response{
+		$id = Parameters::uint32('id', $request->args);
+
+		$quest = Quest::get($id);
+		return new SuccessResponse(['quest' => [
+			'name' => $quest->name,
+			'cost' => $quest->cost
+		]]);
+	}
+
 	public function getName() : string{
 		return 'quest';
 	}
