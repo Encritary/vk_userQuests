@@ -44,6 +44,20 @@ $ php -S localhost:8080 router.php
 
 Указанная выше команда запустит проект при помощи роутер-файла ``router.php``.
 
+## Сборка через Docker
+
+Чтобы собрать образ Docker для сервиса, можно воспользоваться командой:
+
+```shell
+$ docker build -t user_quests .
+```
+
+Затем можно запустить образ Docker, указав в качестве тома конфигурационный файл и пробросив порт:
+
+```shell
+$ docker run -v ./config.json:/app/config.json -p 8080:8080/tcp user_quests
+```
+
 ## Документация
 
 Документацию по API можно прочитать [в отдельном файле](https://github.com/Encritary/vk_userQuests/blob/main/API.md).
