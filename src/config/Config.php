@@ -26,7 +26,7 @@ class Config{
 		try{
 			$data = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
 		}catch(JsonException $e){
-			throw new ConfigException("Couldn't parse JSON: {$e->getMessage()}", $e);
+			throw new ConfigException("Couldn't parse JSON: {$e->getMessage()}", 0, $e);
 		}
 
 		return self::fromArray($data);

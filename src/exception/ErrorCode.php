@@ -15,6 +15,5 @@ enum ErrorCode: int{
 
 	case QuestAlreadyCompleted = 7;
 
-	case ConfigError = 0xf0;
 	case InternalError = 0xff;
 }
