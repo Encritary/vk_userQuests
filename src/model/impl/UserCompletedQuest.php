@@ -37,6 +37,7 @@ SELECT ucq.quest_id, q.name AS quest_name, q.cost AS quest_cost,
 FROM user_completed_quests ucq
 LEFT JOIN quests q ON q.id = ucq.quest_id
 WHERE ucq.user_id = ? 
+ORDER BY ucq.completed_at DESC
 LIMIT ? OFFSET ?
 QUERY);
 		$stmt->bind_param('iii', $user->id, $count, $offset);
