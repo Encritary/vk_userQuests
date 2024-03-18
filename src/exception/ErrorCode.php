@@ -14,5 +14,5 @@ enum ErrorCode: int{
 	case ModelNotFound = 6;
 
 	case ConfigError = 0xf0;
-	case SqlError = 0xf1;
+	case InternalError = 0xff;
 }
