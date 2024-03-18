@@ -13,6 +13,8 @@ enum ErrorCode: int{
 	case BadParameterFormat = 5;
 	case ModelNotFound = 6;
 
+	case QuestAlreadyCompleted = 7;
+
 	case ConfigError = 0xf0;
 	case InternalError = 0xff;
 }
