@@ -39,5 +39,17 @@ final class Parameters{
 		return (int) $str;
 	}
 
+	/**
+	 * @throws MissingParameterException
+	 * @throws BadParameterFormatException
+	 */
+	public static function uint32(string $parameter, array $args, ?int $default = null) : int{
+		$uint = self::uint($parameter, $args, $default);
+		if($uint > 0xffffffff){
+			throw new BadParameterFormatException("Parameter $parameter is too large for 32-bit unsigned int");
+		}
+		return $uint;
+	}
+
 	private function __construct(){}
 }
