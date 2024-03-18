@@ -6,6 +6,8 @@ namespace encritary\userQuests;
 
 use encritary\userQuests\config\Config;
 use encritary\userQuests\controller\ControllerFactory;
+use encritary\userQuests\controller\impl\QuestController;
+use encritary\userQuests\controller\impl\UserController;
 use encritary\userQuests\db\Db;
 use encritary\userQuests\request\Request;
 use encritary\userQuests\response\Response;
@@ -25,6 +27,10 @@ final class App{
 		Db::init($config->dbCredentials);
 
 		ControllerFactory::init();
+
+		$controllerFactory = ControllerFactory::getInstance();
+		$controllerFactory->register(new UserController());
+		$controllerFactory->register(new QuestController());
 
 		$this->router = new Router();
 	}
