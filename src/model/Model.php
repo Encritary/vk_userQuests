@@ -14,7 +14,9 @@ abstract class Model{
 		$this->afterInsert($stmt);
 	}
 
-	abstract protected function prepareInsert() : mysqli_stmt;
+	protected function afterInsert(mysqli_stmt $stmt) : void{
 
-	abstract protected function afterInsert(mysqli_stmt $stmt) : void;
+	}
+
+	abstract protected function prepareInsert() : mysqli_stmt;
 }
