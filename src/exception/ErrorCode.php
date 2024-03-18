@@ -11,6 +11,7 @@ enum ErrorCode: int{
 	case MethodNotFound = 3;
 	case MissingParameter = 4;
 	case BadParameterFormat = 5;
+	case ModelNotFound = 6;
 
 	case ConfigError = 0xf0;
 	case SqlError = 0xf1;
