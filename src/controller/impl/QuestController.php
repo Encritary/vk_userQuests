@@ -20,7 +20,7 @@ class QuestController extends AttributedController{
 
 	#[Route]
 	public function new(Request $request) : Response{
-		$name = Parameters::string('name', $request->args);
+		$name = Parameters::stringWithSize('name', $request->args, 128);
 		$cost = Parameters::uint32('cost', $request->args);
 
 		$quest = new Quest($name, $cost);

@@ -16,7 +16,7 @@ class UserController extends AttributedController{
 
 	#[Route]
 	public function new(Request $request) : Response{
-		$name = Parameters::string('name', $request->args);
+		$name = Parameters::stringWithSize('name', $request->args, 32);
 
 		$user = new User($name);
 		$user->insert();

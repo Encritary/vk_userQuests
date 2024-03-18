@@ -7,6 +7,7 @@ namespace encritary\userQuests\controller;
 use encritary\userQuests\controller\exception\BadParameterFormatException;
 use encritary\userQuests\controller\exception\MissingParameterException;
 use function ctype_digit;
+use function strlen;
 
 final class Parameters{
 
@@ -21,6 +22,17 @@ final class Parameters{
 			throw new MissingParameterException($parameter);
 		}
 		return $args[$parameter];
+	}
+
+	/**
+	 * @throws MissingParameterException
+	 */
+	public static function stringWithSize(string $parameter, array $args, int $maxLength, int $minLength = 1, ?string $default = null) : string{
+		$str = self::string($parameter, $args, $default);
+		if(strlen($str) < $minLength || strlen($str) > $maxLength){
+			throw new BadParameterFormatException("Parameter $parameter expected to be string from $minLength to $maxLength characters long");
+		}
+		return $parameter;
 	}
 
 	/**
