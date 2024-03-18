@@ -50,4 +50,17 @@ QUERY);
 	protected function afterInsert(mysqli_stmt $stmt) : void{
 		$this->id = $stmt->insert_id;
 	}
+
+	public function incrementBalance(int $balanceDiff) : void{
+		$db = Db::get();
+		$stmt = $db->prepare(<<<QUERY
+UPDATE users
+SET balance = balance + ?
+WHERE id = ?
+QUERY);
+		$stmt->bind_param('ii', $balanceDiff, $this->id);
+		$stmt->execute();
+
+		$this->balance += $balanceDiff;
+	}
 }
