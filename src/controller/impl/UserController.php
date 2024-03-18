@@ -24,6 +24,17 @@ class UserController extends AttributedController{
 		return new SuccessResponse(['user_id' => $user->id]);
 	}
 
+	#[Route]
+	public function get(Request $request) : Response{
+		$id = Parameters::uint32('id', $request->args);
+
+		$user = User::get($id);
+		return new SuccessResponse(['user' => [
+			'name' => $user->name,
+			'balance' => $user->balance
+		]]);
+	}
+
 	public function getName() : string{
 		return 'user';
 	}
