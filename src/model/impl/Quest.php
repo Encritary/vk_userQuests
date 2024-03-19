@@ -7,7 +7,8 @@ namespace encritary\userQuests\model\impl;
 use encritary\userQuests\db\Db;
 use encritary\userQuests\model\exception\ModelNotFoundException;
 use encritary\userQuests\model\Model;
-use mysqli_stmt;
+use PDO;
+use PDOStatement;
 
 class Quest extends Model{
 
@@ -18,15 +19,14 @@ SELECT name, cost
 FROM quests
 WHERE id = ?
 QUERY);
-		$stmt->bind_param('i', $id);
+		$stmt->bindValue(1, $id);
 		$stmt->execute();
 
-		$result = $stmt->get_result();
-		if($result->num_rows === 0){
+		if($stmt->rowCount() === 0){
 			throw new ModelNotFoundException("Quest with ID $id not found");
 		}
 
-		[$name, $cost] = $result->fetch_row();
+		[$name, $cost] = $stmt->fetch();
 		return new self($name, (int) $cost, $id);
 	}
 
@@ -37,18 +37,18 @@ QUERY);
 		public ?int $id = null
 	){}
 
-	protected function prepareInsert() : mysqli_stmt{
-		$db = Db::get();
+	protected function prepareInsert(PDO $db) : PDOStatement{
 		$stmt = $db->prepare(<<<QUERY
 INSERT INTO quests
 (name, cost)
 VALUES (?, ?)
 QUERY);
-		$stmt->bind_param('si', $this->name, $this->cost);
+		$stmt->bindValue(1, $this->name);
+		$stmt->bindValue(2, $this->cost);
 		return $stmt;
 	}
 
-	protected function afterInsert(mysqli_stmt $stmt) : void{
-		$this->id = $stmt->insert_id;
+	protected function afterInsert(PDO $db) : void{
+		$this->id = (int) $db->lastInsertId();
 	}
 }

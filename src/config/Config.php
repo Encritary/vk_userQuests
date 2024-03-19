@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace encritary\userQuests\config;
 
-use encritary\userQuests\db\MysqlCredentials;
+use encritary\userQuests\db\DbCredentials;
 use JsonException;
 use function file_exists;
 use function file_get_contents;
@@ -38,24 +38,20 @@ class Config{
 		}
 
 		$credentials = $data['db'];
-		foreach(['host', 'user', 'password', 'db'] as $required){
-			if(!isset($credentials[$required])){
-				throw new ConfigException("Missing DB connection credential: $required");
-			}
+		if(!isset($credentials['dsn'])){
+			throw new ConfigException("Missing DB connection DSN credential");
 		}
 
 		return new self(
-			new MysqlCredentials(
-				$credentials['host'],
-				$credentials['user'],
-				$credentials['password'],
-				$credentials['db'],
-				$credentials['port'] ?? 3306
+			new DbCredentials(
+				$credentials['dsn'],
+				$credentials['username'] ?? null,
+				$credentials['password'] ?? null
 			)
 		);
 	}
 
 	public function __construct(
-		public readonly MysqlCredentials $dbCredentials
+		public readonly DbCredentials $dbCredentials
 	){}
 }

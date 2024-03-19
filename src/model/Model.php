@@ -4,19 +4,22 @@ declare(strict_types=1);
 
 namespace encritary\userQuests\model;
 
-use mysqli_stmt;
+use encritary\userQuests\db\Db;
+use PDO;
+use PDOStatement;
 
 abstract class Model{
 
 	public function insert() : void{
-		$stmt = $this->prepareInsert();
+		$db = Db::get();
+		$stmt = $this->prepareInsert($db);
 		$stmt->execute();
-		$this->afterInsert($stmt);
+		$this->afterInsert($db);
 	}
 
-	protected function afterInsert(mysqli_stmt $stmt) : void{
+	protected function afterInsert(PDO $db) : void{
 
 	}
 
-	abstract protected function prepareInsert() : mysqli_stmt;
+	abstract protected function prepareInsert(PDO $db) : PDOStatement;
 }

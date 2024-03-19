@@ -2,26 +2,30 @@
 
 namespace encritary\userQuests\db;
 
-use mysqli;
-use mysqli_sql_exception;
+use PDO;
+use PDOException;
+use function error_log;
+use function stristr;
 
 final class Db{
 
-	private static MysqlCredentials $credentials;
-	private static ?mysqli $db = null;
+	private static DbCredentials $credentials;
+	private static ?PDO $db = null;
 
-	public static function init(MysqlCredentials $credentials) : void{
+	public static function init(DbCredentials $credentials) : void{
 		self::$credentials = $credentials;
 	}
 
-	public static function get() : mysqli{
+	public static function get() : PDO{
 		if(self::$db !== null){
 			try{
-				if(!self::$db->ping()){
+				self::$db->query('SELECT 1');
+			}catch(PDOException $e){
+				if($e->getCode() === 'HY000' && stristr($e->getMessage(), 'server has gone away')){
 					self::$db = null;
+				}else{
+					throw $e;
 				}
-			}catch(mysqli_sql_exception){ // MySQL server has gone away
-				self::$db = null;
 			}
 		}
 		if(self::$db === null){
@@ -31,13 +35,14 @@ final class Db{
 		return self::$db;
 	}
 
-	protected static function createConnection() : mysqli{
-		return new mysqli(
-			self::$credentials->host,
-			self::$credentials->user,
+	protected static function createConnection() : PDO{
+		return new PDO(
+			self::$credentials->dsn,
+			self::$credentials->username,
 			self::$credentials->password,
-			self::$credentials->db,
-			self::$credentials->port
+			[
+				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+			]
 		);
 	}
 }

@@ -26,10 +26,9 @@ $ composer install
 ```json
 {
   "db": {
-    "host": "127.0.0.1",
-    "user": "someuser",
-    "password": "123456",
-    "db": "user_quests"
+    "dsn": "mysql:host=127.0.0.1;dbname=user_quests",
+    "username": "someuser",
+    "password": "123456"
   }
 }
 ```
