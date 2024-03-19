@@ -12,11 +12,16 @@
     "ext-json": "*",
     "ext-pdo": "*",
     "ext-sqlite3": "*",
-    "ext-ctype": "*"
+    "ext-ctype": "*",
+    "phpunit/phpunit": "^10.1.0"
   },
   "autoload": {
     "psr-4": {
-      "encritary\\userQuests\\": "src/"
+      "encritary\\userQuests\\": "src/",
+      "encritary\\userQuestsUnit\\": "tests/"
     }
+  },
+  "scripts": {
+    "test": "phpunit tests/"
   }
 }
