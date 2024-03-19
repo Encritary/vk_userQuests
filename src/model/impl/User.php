@@ -9,7 +9,7 @@ use encritary\userQuests\model\exception\ModelNotFoundException;
 use encritary\userQuests\model\Model;
 use PDO;
 use PDOStatement;
-use function error_log;
+use function var_dump;
 
 class User extends Model{
 
@@ -20,14 +20,15 @@ SELECT name, balance
 FROM users
 WHERE id = ?
 QUERY);
-		$stmt->bindValue(1, $id);
+		$stmt->bindValue(1, $id, PDO::PARAM_INT);
 		$stmt->execute();
 
-		if($stmt->rowCount() === 0){
+		$row = $stmt->fetch();
+		if($row === false){
 			throw new ModelNotFoundException("User with ID $id not found");
 		}
 
-		[$name, $balance] = $stmt->fetch();
+		[$name, $balance] = $row;
 		return new self($name, (int) $balance, $id);
 	}
 

@@ -64,11 +64,12 @@ WHERE user_id = ? AND quest_id = ?
 QUERY);
 		$stmt->execute([$user->id, $quest->id]);
 
-		if($stmt->rowCount() === 0){
+		$row = $stmt->fetch();
+		if($row === false){
 			return null;
 		}
 
-		$completedAt = (int) $stmt->fetch()[0];
+		$completedAt = (int) $row[0];
 		return new self($user, $quest, $completedAt);
 	}
 

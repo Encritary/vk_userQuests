@@ -22,11 +22,12 @@ QUERY);
 		$stmt->bindValue(1, $id);
 		$stmt->execute();
 
-		if($stmt->rowCount() === 0){
+		$row = $stmt->fetch();
+		if($row === false){
 			throw new ModelNotFoundException("Quest with ID $id not found");
 		}
 
-		[$name, $cost] = $stmt->fetch();
+		[$name, $cost] = $row;
 		return new self($name, (int) $cost, $id);
 	}
 
