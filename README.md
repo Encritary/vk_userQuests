@@ -17,6 +17,12 @@
 $ composer install
 ```
 
+## База данных
+
+Для сервиса может использоваться любая база данных, поддерживаемая расширением PDO для PHP.
+
+В папке `sql` можно найти [схему базы данных](https://github.com/Encritary/vk_userQuests/blob/main/sql/mysql_schema.sql) для MySQL.
+
 ## Настройка
 
 Также перед запуском необходимо создать файл `config.json` и заполнить его согласно примеру конфигурации: `config.example.json`.
