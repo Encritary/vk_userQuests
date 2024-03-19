@@ -14,6 +14,7 @@ final class Db{
 
 	public static function init(DbCredentials $credentials) : void{
 		self::$credentials = $credentials;
+		self::$db = null;
 	}
 
 	public static function get() : PDO{
