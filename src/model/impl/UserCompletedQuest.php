@@ -32,7 +32,7 @@ QUERY);
 
 		$stmt = $db->prepare(<<<QUERY
 SELECT ucq.quest_id, q.name AS quest_name, q.cost AS quest_cost,
-       UNIX_TIMESTAMP(ucq.completed_at)
+       ucq.completed_at
 FROM user_completed_quests ucq
 LEFT JOIN quests q ON q.id = ucq.quest_id
 WHERE ucq.user_id = ? 
@@ -58,7 +58,7 @@ QUERY);
 		$db = Db::get();
 
 		$stmt = $db->prepare(<<<QUERY
-SELECT UNIX_TIMESTAMP(completed_at)
+SELECT completed_at
 FROM user_completed_quests
 WHERE user_id = ? AND quest_id = ? 
 QUERY);
@@ -87,7 +87,7 @@ QUERY);
 		$stmt = $db->prepare(<<<QUERY
 INSERT INTO user_completed_quests
 (user_id, quest_id, completed_at)
-VALUES (?, ?, FROM_UNIXTIME(?))
+VALUES (?, ?, ?)
 QUERY);
 		$stmt->bindValue(1, $this->user->id);
 		$stmt->bindValue(2, $this->quest->id);

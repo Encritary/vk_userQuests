@@ -13,7 +13,7 @@ CREATE TABLE quests (
 CREATE TABLE user_completed_quests (
     user_id integer unsigned not null,
     quest_id integer unsigned not null,
-    completed_at timestamp not null default current_timestamp,
+    completed_at integer not null,
     UNIQUE (user_id, quest_id),
     FOREIGN KEY (user_id) REFERENCES users (id),
     FOREIGN KEY (quest_id) REFERENCES quests (id)
