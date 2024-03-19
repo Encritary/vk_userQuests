@@ -22,10 +22,6 @@ final class ControllerFactory{
 	/** @var Controller[] */
 	private array $controllers = [];
 
-	public function __construct(){
-		self::$instance = $this;
-	}
-
 	/**
 	 * @return Controller[]
 	 */
