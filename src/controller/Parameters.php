@@ -21,7 +21,7 @@ final class Parameters{
 			}
 			throw new MissingParameterException($parameter);
 		}
-		return $args[$parameter];
+		return (string) $args[$parameter];
 	}
 
 	/**
