@@ -10,6 +10,14 @@ CREATE TABLE quests (
     cost int unsigned not null
 );
 
+CREATE TABLE quest_requirements (
+    quest_id int unsigned not null,
+    required_quest_id int unsigned not null,
+    UNIQUE (quest_id, required_quest_id),
+    FOREIGN KEY (quest_id) REFERENCES quests (id),
+    FOREIGN KEY (required_quest_id) REFERENCES quests (id)
+);
+
 CREATE TABLE user_completed_quests (
     user_id int unsigned not null,
     quest_id int unsigned not null,

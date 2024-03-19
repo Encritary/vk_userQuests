@@ -14,6 +14,7 @@ enum ErrorCode: int{
 	case ModelNotFound = 6;
 
 	case QuestAlreadyCompleted = 7;
+	case QuestRequirementsNotFulfilled = 8;
 
 	case InternalError = 0xff;
 }

@@ -7,6 +7,7 @@ namespace encritary\userQuests\controller;
 use encritary\userQuests\controller\exception\BadParameterFormatException;
 use encritary\userQuests\controller\exception\MissingParameterException;
 use function ctype_digit;
+use function explode;
 use function strlen;
 
 final class Parameters{
@@ -61,6 +62,31 @@ final class Parameters{
 			throw new BadParameterFormatException("Parameter $parameter is too large for 32-bit unsigned int");
 		}
 		return $uint;
+	}
+
+	/**
+	 * @throws MissingParameterException
+	 * @throws BadParameterFormatException
+	 */
+	public static function uint32List(string $parameter, array $args, ?array $default = null) : array{
+		if(!isset($args[$parameter]) && $default !== null){
+			return $default;
+		}
+
+		$str = self::string($parameter, $args);
+		$result = [];
+		foreach(explode(",", $str) as $strItem){
+			if(!ctype_digit($strItem)){
+				throw new BadParameterFormatException("Parameter $parameter expected to be list of unsigned 32-bit integers, got item $strItem");
+			}
+
+			$item = (int) $strItem;
+			if($item > 0xffffffff){
+				throw new BadParameterFormatException("Parameter $parameter has an item too big for 32-bit unsigned integer: $item");
+			}
+			$result[] = $item;
+		}
+		return $result;
 	}
 
 	private function __construct(){}

@@ -30,6 +30,15 @@ CREATE TABLE IF NOT EXISTS quests (
 );
 QUERY);
 		$db->exec(<<<QUERY
+CREATE TABLE IF NOT EXISTS quest_requirements (
+    quest_id int unsigned not null,
+    required_quest_id int unsigned not null,
+    UNIQUE (quest_id, required_quest_id),
+    FOREIGN KEY (quest_id) REFERENCES quests (id),
+    FOREIGN KEY (required_quest_id) REFERENCES quests (id)
+);
+QUERY);
+		$db->exec(<<<QUERY
 CREATE TABLE IF NOT EXISTS user_completed_quests (
     user_id integer unsigned not null,
     quest_id integer unsigned not null,
