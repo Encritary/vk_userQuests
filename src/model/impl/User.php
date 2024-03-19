@@ -9,7 +9,6 @@ use encritary\userQuests\model\exception\ModelNotFoundException;
 use encritary\userQuests\model\Model;
 use PDO;
 use PDOStatement;
-use function var_dump;
 
 class User extends Model{
 

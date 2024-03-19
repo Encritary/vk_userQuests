@@ -10,7 +10,6 @@ use Generator;
 use PDO;
 use PDOStatement;
 use function time;
-use function var_dump;
 
 class UserCompletedQuest extends Model{
 

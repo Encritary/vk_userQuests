@@ -4,7 +4,6 @@ namespace encritary\userQuests\db;
 
 use PDO;
 use PDOException;
-use function error_log;
 use function stristr;
 
 final class Db{

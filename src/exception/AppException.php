@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace encritary\userQuests\exception;
 
 use encritary\userQuests\response\http\HttpCode;
-use Exception;
 use RuntimeException;
 use Throwable;
 
