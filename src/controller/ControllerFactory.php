@@ -13,7 +13,6 @@ final class ControllerFactory{
 
 	public static function init() : void{
 		self::$instance = new self;
-		// TODO: register controllers
 	}
 
 	public static function getInstance() : self{
