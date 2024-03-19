@@ -32,7 +32,7 @@ final class Parameters{
 		if(strlen($str) < $minLength || strlen($str) > $maxLength){
 			throw new BadParameterFormatException("Parameter $parameter expected to be string from $minLength to $maxLength characters long");
 		}
-		return $parameter;
+		return $str;
 	}
 
 	/**
